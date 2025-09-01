@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define source and destination paths
-SERVICE_FILE_USER="hiwitv-kiosk-browser.service"
+SERVICE_FILE_USER="studitv-kiosk-browser.service"
 SRC_DIR="$(dirname "$0")"
 DEST_DIR_USER="/home/pi/.config/systemd/user"
 

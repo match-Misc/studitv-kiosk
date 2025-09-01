@@ -2,7 +2,7 @@
 
 # This script sets up a cron job to run the kiosk watchdog.
 
-WATCHDOG_SCRIPT="/home/pi/hiwitv-kiosk/setup/kiosk_watchdog.sh"
+WATCHDOG_SCRIPT="/home/pi/studitv-kiosk/setup/kiosk_watchdog.sh"
 CRON_JOB="* * * * * ${WATCHDOG_SCRIPT}"
 
 # Add the cron job for the 'pi' user

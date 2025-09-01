@@ -1,4 +1,4 @@
-# hiwitv-kiosk
+# studitv-kiosk
 
 A simple kiosk application for displaying a website on a Raspberry Pi.
 
@@ -10,9 +10,9 @@ The setup uses a systemd user service to launch the browser, which is a more rob
 
 ## Configuration
 
-The kiosk URL is set in the `hiwitv-kiosk-browser.service` file. To change the website being displayed:
+The kiosk URL is set in the `studitv-kiosk-browser.service` file. To change the website being displayed:
 
-1.  Open `hiwitv-kiosk-browser.service` in a text editor.
+1.  Open `setup/studitv-kiosk-browser.service` in a text editor.
 2.  Find the line that starts with `ExecStart=`.
 3.  Replace the URL (`https://match-misc.github.io/studitv-kiosk/`) with the URL you want to display.
 4.  Save the file and run the `install.sh` script again, or manually copy the service file and restart the Pi.
@@ -33,8 +33,8 @@ This section provides instructions for setting up the kiosk on a Raspberry Pi (t
 1.  **Clone the repository:**
 
     ```bash
-    git clone https://github.com/your-username/hiwitv-kiosk.git
-    cd hiwitv-kiosk
+    git clone https://github.com/your-username/studitv-kiosk.git
+    cd studitv-kiosk
     ```
 
 2.  **Run the installation script:**
@@ -51,12 +51,12 @@ This section provides instructions for setting up the kiosk on a Raspberry Pi (t
 
 ## Architecture
 
--   `hiwitv-kiosk-browser.service`: A systemd **user** service that launches the Chromium browser in kiosk mode. This is the modern approach for GUI applications.
+-   `studitv-kiosk-browser.service`: A systemd **user** service that launches the Chromium browser in kiosk mode. This is the modern approach for GUI applications.
 -   `kiosk_watchdog.sh`: A script run by a cron job every minute to ensure the browser service is active.
 -   `setup/`: A directory containing the installation scripts for the service and cron job.
 -   `install.sh`: The main installation script.
 
 ## Troubleshooting
 
--   **Browser service status (run as pi user):** `systemctl --user status hiwitv-kiosk-browser.service`
--   **Watchdog logs:** `cat /tmp/hiwitv_kiosk_watchdog.log`
+-   **Browser service status (run as pi user):** `systemctl --user status studitv-kiosk-browser.service`
+-   **Watchdog logs:** `cat /tmp/studitv_kiosk_watchdog.log`

@@ -1,5 +1,5 @@
 [Unit]
-Description=Chromium Kiosk Mode Browser for HiWiTV
+Description=Chromium Kiosk Mode Browser for StudiTV
 Wants=graphical-session.target
 After=graphical-session.target
 
