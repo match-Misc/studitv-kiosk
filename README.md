@@ -21,52 +21,53 @@ This section provides instructions for setting up the kiosk on a Raspberry Pi 5 
 - Raspberry Pi 5 with Debian 12 installed
 - Internet connection for downloading packages
 - Internet connection for accessing GitHub Pages
-- The kiosk setup files cloned or copied to `/home/pi/studitv-kiosk`
+- The kiosk setup files cloned or copied to `/home/match/studitv-kiosk`
+- User 'match' with sudo privileges
 
 ### Installation Steps
 
 1. **Clone or copy the repository:**
-   ```bash
-   cd /home/pi
-   git clone https://github.com/match-misc/studitv-kiosk.git studitv-kiosk
-   # Or copy the files to /home/pi/hiwitv-kiosk
-   ```
+    ```bash
+    cd /home/match
+    git clone https://github.com/match-misc/studitv-kiosk.git studitv-kiosk
+    ```
 
 2. **Make scripts executable:**
-   ```bash
-   cd /home/pi/studitv-kiosk
-   chmod +x install.sh launch_kiosk.sh setup_service.sh
-   ```
+    ```bash
+    cd /home/match/studitv-kiosk
+    chmod +x install.sh launch_kiosk.sh setup_service.sh
+    ```
 
 3. **Run the installation script:**
-   ```bash
-   sudo ./install.sh
-   ```
+    ```bash
+    sudo ./install.sh
+    ```
 
 4. **Reboot the system:**
-   ```bash
-   sudo reboot
-   ```
+    ```bash
+    sudo reboot
+    ```
 
 5. **After reboot, run the service setup:**
-   ```bash
-   cd /home/pi/studitv-kiosk
-   sudo ./setup_service.sh
-   ```
+    ```bash
+    cd /home/match/studitv-kiosk
+    sudo ./setup_service.sh
+    ```
 
 6. **Reboot again to start the kiosk:**
-   ```bash
-   sudo reboot
-   ```
+    ```bash
+    sudo reboot
+    ```
 
 ### Manual Testing
 
 To test the kiosk without auto-start:
 
 1. Run the launch script:
-   ```bash
-   ./launch_kiosk.sh
-   ```
+    ```bash
+    cd /home/match/studitv-kiosk
+    ./launch_kiosk.sh
+    ```
 
 ### Configuration
 
@@ -79,4 +80,6 @@ To test the kiosk without auto-start:
 
 - If the display doesn't start, check the systemd service status: `sudo systemctl status kiosk.service`
 - View logs: `sudo journalctl -u kiosk.service`
-- Ensure the user `pi` has access to the display (DISPLAY=:0)
+- Check kiosk-specific logs: `cat /home/match/studitv-kiosk/kiosk.log`
+- Ensure the user `match` has access to the display (DISPLAY=:0)
+- The service includes a watchdog (30s) and auto-restart to ensure reliability

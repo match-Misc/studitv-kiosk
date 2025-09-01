@@ -1,14 +1,15 @@
 [Unit]
 Description=Kiosk Display Service
-After=network.target
+After=network.target graphical.target
 
 [Service]
 Type=simple
 User=match
-WorkingDirectory=/home/match/hiwitv-kiosk
-ExecStart=/home/match/hiwitv-kiosk/launch_kiosk.sh
+WorkingDirectory=/home/match/studitv-kiosk
+ExecStart=/home/match/studitv-kiosk/launch_kiosk.sh
 Restart=always
 RestartSec=5
+WatchdogSec=30
 Environment=DISPLAY=:0
 
 [Install]
