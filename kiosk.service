@@ -1,0 +1,15 @@
+[Unit]
+Description=Kiosk Display Service
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/hiwitv-kiosk
+ExecStart=/home/pi/hiwitv-kiosk/launch_kiosk.sh
+Restart=always
+RestartSec=5
+Environment=DISPLAY=:0
+
+[Install]
+WantedBy=graphical.target
