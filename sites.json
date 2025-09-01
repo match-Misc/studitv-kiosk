@@ -1,0 +1,19 @@
+[
+  {
+    "url": "https://caner.club/?dashboard=true&expert=true",
+    "interval": 60,
+    "zoom": 70
+  },
+  {
+    "url": "https://jpd.industries/",
+    "interval": 60
+  },
+  {
+    "url": "https://www.spp2100.de/news-events",
+    "interval": 60
+  },
+  {
+    "url": "https://www.match.uni-hannover.de/de/institut/aktuell",
+    "interval": 60
+  }
+]
