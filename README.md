@@ -1,85 +1,62 @@
-# studitv-kiosk
+# hiwitv-kiosk
 
-A simple kiosk application for displaying StudiTv sites.
+A simple kiosk application for displaying a website on a Raspberry Pi.
 
 ## Description
 
-This project provides a web-based kiosk interface that loads sites from a JSON configuration file and displays them in fullscreen mode. The kiosk runs on GitHub Pages for easy deployment and updates without needing to modify the Raspberry Pi device.
+This project provides a reliable way to launch a fullscreen Chromium browser in kiosk mode on a Raspberry Pi. It is configured to display a single, specified URL (e.g., a site hosted on GitHub Pages).
 
-## How to Add or Change Sites
+The setup uses a systemd user service to launch the browser, which is a more robust method for modern Raspberry Pi OS versions. A watchdog script is also included to ensure the kiosk browser is always running.
 
-1. Open `sites.json` in a text editor.
-2. Add or modify entries in the JSON array. Each entry should have a "url" field.
-3. Save the file and refresh the kiosk page.
+## Configuration
+
+The kiosk URL is set in the `hiwitv-kiosk-browser.service` file. To change the website being displayed:
+
+1.  Open `hiwitv-kiosk-browser.service` in a text editor.
+2.  Find the line that starts with `ExecStart=`.
+3.  Replace the URL (`https://match-misc.github.io/studitv-kiosk/`) with the URL you want to display.
+4.  Save the file and run the `install.sh` script again, or manually copy the service file and restart the Pi.
 
 ## Raspberry Pi Kiosk Setup
 
-This section provides instructions for setting up the kiosk on a Raspberry Pi 5 running Debian 12 (bookworm).
+This section provides instructions for setting up the kiosk on a Raspberry Pi (tested on Pi 5 with Raspberry Pi OS Bookworm).
 
 ### Prerequisites
 
-- Raspberry Pi 5 with Debian 12 installed
-- Internet connection for downloading packages
-- Internet connection for accessing GitHub Pages
-- The kiosk setup files cloned or copied to `/home/match/studitv-kiosk`
-- User 'match' with sudo privileges
+-   Raspberry Pi with Raspberry Pi OS installed and configured.
+-   A user named `pi` with sudo privileges.
+-   Internet connection.
+-   Git installed (`sudo apt-get install git`).
 
 ### Installation Steps
 
-1. **Clone or copy the repository:**
+1.  **Clone the repository:**
+
     ```bash
-    cd /home/match
-    git clone https://github.com/match-misc/studitv-kiosk.git studitv-kiosk
+    git clone https://github.com/your-username/hiwitv-kiosk.git
+    cd hiwitv-kiosk
     ```
 
-2. **Make scripts executable:**
-    ```bash
-    cd /home/match/studitv-kiosk
-    chmod +x install.sh launch_kiosk.sh setup_service.sh
-    ```
+2.  **Run the installation script:**
 
-3. **Run the installation script:**
+    This single script will handle everything: set up the browser service and install the watchdog cron job.
+
     ```bash
     sudo ./install.sh
     ```
 
-4. **Reboot the system:**
-    ```bash
-    sudo reboot
-    ```
+3.  **Reboot:**
 
-5. **After reboot, run the service setup:**
-    ```bash
-    cd /home/match/studitv-kiosk
-    sudo ./setup_service.sh
-    ```
+    After the script finishes, it will ask you to reboot. Once rebooted, the kiosk will start automatically.
 
-6. **Reboot again to start the kiosk:**
-    ```bash
-    sudo reboot
-    ```
+## Architecture
 
-### Manual Testing
+-   `hiwitv-kiosk-browser.service`: A systemd **user** service that launches the Chromium browser in kiosk mode. This is the modern approach for GUI applications.
+-   `kiosk_watchdog.sh`: A script run by a cron job every minute to ensure the browser service is active.
+-   `setup/`: A directory containing the installation scripts for the service and cron job.
+-   `install.sh`: The main installation script.
 
-To test the kiosk without auto-start:
+## Troubleshooting
 
-1. Run the launch script:
-    ```bash
-    cd /home/match/studitv-kiosk
-    ./launch_kiosk.sh
-    ```
-
-### Configuration
-
-- The kiosk loads the website from GitHub Pages: https://match-misc.github.io/studitv-kiosk/
-- To change displayed websites, update the `sites.json` file in the GitHub repository
-- Modify `launch_kiosk.sh` to change the GitHub Pages URL if needed
-- Adjust the systemd service in `kiosk.service` if needed
-
-### Troubleshooting
-
-- If the display doesn't start, check the systemd service status: `sudo systemctl status kiosk.service`
-- View logs: `sudo journalctl -u kiosk.service`
-- Check kiosk-specific logs: `cat /home/match/studitv-kiosk/kiosk.log`
-- Ensure the user `match` has access to the display (DISPLAY=:0)
-- The service includes a watchdog (30s) and auto-restart to ensure reliability
+-   **Browser service status (run as pi user):** `systemctl --user status hiwitv-kiosk-browser.service`
+-   **Watchdog logs:** `cat /tmp/hiwitv_kiosk_watchdog.log`

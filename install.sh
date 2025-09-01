@@ -1,20 +1,37 @@
 #!/bin/bash
 
-# Update package list
-sudo apt update
+# This script installs the HiWiTV Kiosk.
 
-# Install Chromium browser
-sudo apt install -y chromium-browser
+if [ "$(id -u)" -ne 0 ]; then
+  echo "This script must be run as root. Please use sudo." >&2
+  exit 1
+fi
 
-# Install unclutter to hide mouse cursor
-sudo apt install -y unclutter
+SCRIPT_DIR="$(dirname "$0")"
 
-# Python3 not needed since we're using GitHub Pages
+# Make scripts executable
+chmod +x "${SCRIPT_DIR}/setup/kiosk_watchdog.sh"
+chmod +x "${SCRIPT_DIR}/setup/setup_services.sh"
+chmod +x "${SCRIPT_DIR}/setup/setup_cron.sh"
 
-# Install xdotool for keyboard simulation if needed
-sudo apt install -y xdotool
+# Run setup scripts
+"${SCRIPT_DIR}/setup/setup_services.sh"
+if [ $? -ne 0 ]; then
+    echo "Error: Service setup failed." >&2
+    exit 1
+fi
 
-# Install lightdm if not already installed (for auto-login)
-sudo apt install -y lightdm
+"${SCRIPT_DIR}/setup/setup_cron.sh"
+if [ $? -ne 0 ]; then
+    echo "Error: Cron setup failed." >&2
+    exit 1
+fi
 
-echo "Installation complete. Please reboot the system."
+echo "
+Installation complete."
+read -p "Reboot now? (y/n): " choice
+case "$choice" in 
+  y|Y ) sudo reboot;;
+  n|N ) echo "Please reboot manually later.";;
+  * ) echo "Invalid choice. Please reboot manually.";;
+esac
