@@ -4,9 +4,9 @@ After=network.target
 
 [Service]
 Type=simple
-User=pi
-WorkingDirectory=/home/pi/hiwitv-kiosk
-ExecStart=/home/pi/hiwitv-kiosk/launch_kiosk.sh
+User=match
+WorkingDirectory=/home/match/hiwitv-kiosk
+ExecStart=/home/match/hiwitv-kiosk/launch_kiosk.sh
 Restart=always
 RestartSec=5
 Environment=DISPLAY=:0
