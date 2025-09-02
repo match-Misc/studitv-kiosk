@@ -1,15 +1,11 @@
 [
   {
     "url": "https://caner.club/?dashboard=true&expert=true",
-    "interval": 60,
+    "interval": 90,
     "zoom": 80
   },
   {
     "url": "https://jpd.industries/",
-    "interval": 45
-  },
-  {
-    "url": "http://kuchenliste/",
     "interval": 30
   }
 ]
