@@ -2,6 +2,7 @@
 
 # Define source and destination paths
 SERVICE_FILE_USER="studitv-kiosk-browser.service"
+LAUNCHER_SCRIPT="kiosk_launcher.sh"
 SRC_DIR="$(dirname "$0")"
 DEST_DIR_USER="/home/pi/.config/systemd/user"
 
@@ -20,6 +21,12 @@ fi
 sudo -u pi cp "${SRC_DIR}/${SERVICE_FILE_USER}" "${DEST_DIR_USER}/${SERVICE_FILE_USER}"
 if [ $? -ne 0 ]; then
     echo "Error: Failed to copy ${SERVICE_FILE_USER}." >&2
+    exit 1
+fi
+
+sudo -u pi cp "${SRC_DIR}/${LAUNCHER_SCRIPT}" "${DEST_DIR_USER}/${LAUNCHER_SCRIPT}"
+if [ $? -ne 0 ]; then
+    echo "Error: Failed to copy ${LAUNCHER_SCRIPT}." >&2
     exit 1
 fi
 

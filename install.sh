@@ -9,10 +9,15 @@ fi
 
 SCRIPT_DIR="$(dirname "$0")"
 
+# Install unclutter for hiding mouse cursor
+apt update
+apt install -y unclutter
+
 # Make scripts executable
 chmod +x "${SCRIPT_DIR}/setup/kiosk_watchdog.sh"
 chmod +x "${SCRIPT_DIR}/setup/setup_services.sh"
 chmod +x "${SCRIPT_DIR}/setup/setup_cron.sh"
+chmod +x "${SCRIPT_DIR}/setup/kiosk_launcher.sh"
 
 # Run setup scripts
 "${SCRIPT_DIR}/setup/setup_services.sh"

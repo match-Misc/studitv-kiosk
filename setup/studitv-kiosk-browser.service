@@ -5,7 +5,7 @@ After=graphical-session.target
 
 [Service]
 Environment=DISPLAY=:0
-ExecStart=/usr/bin/chromium-browser --kiosk --noerrdialogs --disable-infobars --ignore-certificate-errors --no-sandbox --disable-gpu --disable-dev-shm-usage --incognito https://match-misc.github.io/studitv-kiosk/
+ExecStart=/home/pi/.config/systemd/user/kiosk_launcher.sh
 Restart=on-failure
 RestartSec=10
 
